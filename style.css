@@ -1,0 +1,7 @@
+body {
+    font-family: "Trirong", serif;
+  }
+
+  .guess, .btn, .reset-btn {
+    width: 75px
+}
