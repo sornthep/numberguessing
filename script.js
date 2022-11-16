@@ -1,51 +1,68 @@
 console.log('start...');
 
 const maxi = 50;
+const youhavelost = "You have lost. Click reset to start a new game.";
+const youhavewon = "You have won. Click reset to start a new game.";
 
-let secret = Math.trunc(Math.random() * maxi) + 1;
+maxScore = () => Math.trunc(maxi/2)+1;
+calcSecret = () => Math.trunc(Math.random() * maxi) + 1;
+
+let secret;
 let yourGuess;
-let numScore = maxi;
+let numScore;
 let highestScore = 0;
 let won = false;
+let lost = false;
 
 const msgEl = document.querySelector('.message');
 const guessEl = document.querySelector('.guess');
 const btnEl = document.querySelector('.btn');
 const score = document.querySelector('.score');
+const highest = document.querySelector('.highest-score');
 const reset = document.querySelector('.reset-btn');
 
+updateScore = (num) => score.textContent = `Your score: ${num}.`;
+updateHighestScore = (num) => highest.textContent = `Highest score: ${num}.`;
+
 myFunction = () => {
-    if (! won) {
+    if (! won && ! lost) {
         yourGuess = Number(guessEl.value);
         // console.log(guessEl.value,yourGuess);
         if (yourGuess >= 1 && yourGuess <= maxi) {
             if (yourGuess === secret) {
                 won = true;
-                msgEl.textContent = yourGuess + " is correct.  ";
+                msgEl.textContent = `Congratulations!!! ${yourGuess} is correct. You have won.`;
                 if (numScore > highestScore) {
                     highestScore = numScore;
-                    score.textContent = `Your score: ${numScore}. Highest score: ${highestScore}.`;
+                    updateHighestScore(highestScore); 
                 }
             } else {
                 const howWrong = (yourGuess > secret) ? " is too high.  " : " is too low.  ";
-                msgEl.textContent = yourGuess + howWrong;
                 numScore--;
-                score.textContent = `Your score: ${numScore}. Highest score: ${highestScore}.`;
+                updateScore(numScore);
+                if (numScore <= 0) {
+                    lost = true;
+                    msgEl.textContent = youhavelost;
+                } else msgEl.textContent = yourGuess + howWrong + " Please try again.";
             }
         } else {
             msgEl.textContent = `Please guess between 1 and ${maxi}.  `;
         }
-    } else {
-        msgEl.textContent = "You have won. Click reset to start a new game.";
+    } else if (won) {
+        msgEl.textContent = youhavewon;
+    } else { // must have lost
+        msgEl.textContent = youhavelost;
     }
 }
 myResetFunction = () => {
-    secret = Math.trunc(Math.random() * maxi) + 1;
-    numScore = maxi;
+    secret = calcSecret();
+    numScore = maxScore();
     guessEl.value = '';
-    msgEl.textContent = "Enter you guess here";
-    score.textContent = `Your score: ${numScore}. Highest score: ${highestScore}.`;
+    msgEl.textContent = `Start playing by entering you guess between 1 and ${maxi}.`;
+    score.textContent = `Your score: ${numScore}.`;
+    highest.textContent = `Highest score: ${highestScore}.`;
     won = false;
+    lost = false;
 }
 myResetFunction();
 btnEl.addEventListener("click", myFunction);
