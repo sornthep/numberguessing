@@ -85,8 +85,8 @@ myResetFunction = () => {
     guessEl.value = '';
     msgEl.textContent = `Start playing by entering you guess between 1 and ${maxi}.`;
     msgClass('inform');
-    score.textContent = `${numScore}.`;
-    highest.textContent = `${highestScore}.`;
+    score.textContent = `${numScore}`;
+    highest.textContent = `${highestScore}`;
     won = false;
     lost = false;
 }

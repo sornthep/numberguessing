@@ -1,16 +1,24 @@
+.main-frame {
+  width: 500px;
+  border-style: solid;
+  padding: 20px;
+  margin: 50px;
+  text-align: center;
+}
 body {
     font-family: "Trirong", serif;
     background-color: antiquewhite;
   }
 
-#gametitle {
+/*#gametitle {
   text-align: center;
-}
+}*/
 
   .guess {
     width: 75px;
     height: 2em;
     text-align: right;
+    font-size: large;
   }
   
   .btn, .reset-btn {
@@ -21,7 +29,10 @@ body {
 .score, .highest-score {
   border: 2px;
   border-style: solid; 
-  width: 5em;
+  width: 55px;
+  padding-right: 10px;
+  margin-left: 25x;
+  margin-right: 25px;
   text-align: right;
 }
 
