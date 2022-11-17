@@ -1,7 +1,43 @@
 body {
     font-family: "Trirong", serif;
+    background-color: antiquewhite;
   }
 
-  .guess, .btn, .reset-btn {
-    width: 75px
+#gametitle {
+  text-align: center;
+}
+
+  .guess {
+    width: 75px;
+    height: 2em;
+    text-align: right;
+  }
+  
+  .btn, .reset-btn {
+    width: 75px;
+}
+
+
+.score, .highest-score {
+  border: 2px;
+  border-style: solid; 
+  width: 5em;
+  text-align: right;
+}
+
+
+.btn {
+  font-size: larger;
+}
+
+.reset-btn {
+  font-size: larger;
+}
+
+.alert {
+  color: crimson;
+}
+
+.inform {
+  color: blue;
 }

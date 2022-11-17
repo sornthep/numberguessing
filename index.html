@@ -9,7 +9,7 @@
     <body>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
         <link href="style.css" rel="stylesheet">
-        <h1>Number Guessing Game</h1>
+        <h1 id="gametitle">Number Guessing Game</h1>
         <p class="message">
         </p>
         <p>
@@ -18,8 +18,14 @@
             <button class="btn">Submit</button>
         </p>
         <p>
-            <div class="score"></div>
-            <div class="highest-score"></div>
+            <table>
+                <tr>
+                    <td class="scoretxt">Your score:</td>
+                    <td class="score"></td>
+                    <td class="highest-scoretxt">Highest score:</td>
+                    <td class="highest-score"></td>
+                </tr>
+            </table>
             <div>You can reset the game any time.
                 <button class="reset-btn">Reset</button>
             </div>

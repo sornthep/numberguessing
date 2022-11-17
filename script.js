@@ -21,17 +21,34 @@ const score = document.querySelector('.score');
 const highest = document.querySelector('.highest-score');
 const reset = document.querySelector('.reset-btn');
 
-updateScore = (num) => score.textContent = `Your score: ${num}.`;
-updateHighestScore = (num) => highest.textContent = `Highest score: ${num}.`;
+updateScore = (num) => score.textContent = `${num}.`;
+updateHighestScore = (num) => highest.textContent = `${num}.`;
+
+msgClass = (msgType) => {
+    switch (msgType) {
+        case 'normal':
+            msgEl.classList.remove('alert');
+            msgEl.classList.remove('inform');
+            break;
+        case 'inform':
+            msgEl.classList.remove('alert');
+            msgEl.classList.add('inform');
+            break;
+        case 'alert':
+            msgEl.classList.add('alert');
+            msgEl.classList.remove('inform');
+            break;
+    }
+};
 
 myFunction = () => {
     if (! won && ! lost) {
         yourGuess = Number(guessEl.value);
-        // console.log(guessEl.value,yourGuess);
         if (yourGuess >= 1 && yourGuess <= maxi) {
             if (yourGuess === secret) {
                 won = true;
                 msgEl.textContent = `Congratulations!!! ${yourGuess} is correct. You have won.`;
+                msgClass('inform');
                 if (numScore > highestScore) {
                     highestScore = numScore;
                     updateHighestScore(highestScore); 
@@ -43,24 +60,33 @@ myFunction = () => {
                 if (numScore <= 0) {
                     lost = true;
                     msgEl.textContent = youhavelost;
-                } else msgEl.textContent = yourGuess + howWrong + " Please try again.";
+                    msgClass('inform');
+                } else {
+                    msgEl.textContent = yourGuess + howWrong + " Please try again.";
+                    msgClass('normal');
+                }
             }
         } else {
             msgEl.textContent = `Please guess between 1 and ${maxi}.  `;
+            msgClass('alert');
         }
     } else if (won) {
         msgEl.textContent = youhavewon;
+        msgClass('alert');
     } else { // must have lost
         msgEl.textContent = youhavelost;
+        msgClass('alert');
     }
 }
+
 myResetFunction = () => {
     secret = calcSecret();
     numScore = maxScore();
     guessEl.value = '';
     msgEl.textContent = `Start playing by entering you guess between 1 and ${maxi}.`;
-    score.textContent = `Your score: ${numScore}.`;
-    highest.textContent = `Highest score: ${highestScore}.`;
+    msgClass('inform');
+    score.textContent = `${numScore}.`;
+    highest.textContent = `${highestScore}.`;
     won = false;
     lost = false;
 }
