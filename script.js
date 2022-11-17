@@ -1,10 +1,15 @@
 console.log('start...');
 
-const maxi = 50;
-const youhavelost = "You have lost. Click reset to start a new game.";
-const youhavewon = "You have won. Click reset to start a new game.";
+const maxi = 20;
+const youhavelost = "คุณแพ้แล้ว กดปุ่ม Reset เพื่อเริ่มเกมใหม่";
+const youhavewon = "คุณชนะแล้ว กดปุ่ม Reset เพื่อเริ่มเกมใหม่";
 
-maxScore = () => Math.trunc(maxi/2)+1;
+maxScore = () => {
+    let i = 0;
+    while (2**i<maxi) i++;
+    return i;
+}
+//maxScore = () => Math.trunc(maxi/2)+1;
 calcSecret = () => Math.trunc(Math.random() * maxi) + 1;
 
 let secret;
@@ -47,14 +52,14 @@ myFunction = () => {
         if (yourGuess >= 1 && yourGuess <= maxi) {
             if (yourGuess === secret) {
                 won = true;
-                msgEl.textContent = `Congratulations!!! ${yourGuess} is correct. You have won.`;
+                msgEl.textContent = `ยินดีด้วย!!! ${yourGuess} เป็นคำตอบที่ถูกต้อง คุณชนะแล้ว`;
                 msgClass('inform');
                 if (numScore > highestScore) {
                     highestScore = numScore;
                     updateHighestScore(highestScore); 
                 }
             } else {
-                const howWrong = (yourGuess > secret) ? " is too high.  " : " is too low.  ";
+                const howWrong = (yourGuess > secret) ? " มากเกินไป  " : " น้อยเกินไป  ";
                 numScore--;
                 updateScore(numScore);
                 if (numScore <= 0) {
@@ -62,12 +67,12 @@ myFunction = () => {
                     msgEl.textContent = youhavelost;
                     msgClass('inform');
                 } else {
-                    msgEl.textContent = yourGuess + howWrong + " Please try again.";
+                    msgEl.textContent = yourGuess + howWrong + " ลองทายใหม่";
                     msgClass('normal');
                 }
             }
         } else {
-            msgEl.textContent = `Please guess between 1 and ${maxi}.  `;
+            msgEl.textContent = `กรุณาทายตัวเลขระหว่าง 1 และ ${maxi}.  `;
             msgClass('alert');
         }
     } else if (won) {
@@ -83,7 +88,7 @@ myResetFunction = () => {
     secret = calcSecret();
     numScore = maxScore();
     guessEl.value = '';
-    msgEl.textContent = `Start playing by entering you guess between 1 and ${maxi}.`;
+    msgEl.textContent = `เริ่มเล่นโดยทายตัวเลขระหว่าง 1 และ ${maxi}.`;
     msgClass('inform');
     score.textContent = `${numScore}`;
     highest.textContent = `${highestScore}`;
